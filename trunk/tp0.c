@@ -2,21 +2,14 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define VERSION 0.1
+#define VERSION 2
 
 // Definicion de funcines
 
-int abrirArchivo(char* path, FILE* fd, char* mode);
+int procesarArchivo(FILE* fd);
 
 // Funcion principal
 int main(int argc, char** argv) {
-	
-	if(argc > 3) {
-		fprintf(stderr, "Cantidad de argumentos invalidos\n");
-		return 1;
-	}
-	FILE* entrada = NULL;
-	FILE* salida = NULL;
 	int status = 0;
 	
 	if(argc == 2) {
@@ -26,48 +19,63 @@ int main(int argc, char** argv) {
 			return 0;
 		}
 		if(strcmp(argv[1], "-h") == 0) {
-			printf("Comandos disponibles:\n");
+			printf("Comandos y argumentos disponibles:\n");
 			printf("-V Version del programa\n");
-			printf("<archivo entrada> <archivo salida>\n");
-			printf("<archivo salida> (Toma entrada estandar\n");
+			printf("[File...] (Archivo/s de entrada)\n");
 			// Y cualquier otra cosa que se quiera agregar
 			return 0;
 		}
-		else {
-			status = abrirArchivo(argv[1], salida, "w");
+	}
+	if(argc == 1) {
+		status = procesarArchivo(stdin);
+	}
+	else{
+		int arch = 1;
+		FILE* entrada;
+		while(arch < argc) {
+			entrada = fopen(argv[arch], "r");
+			if(!entrada) {
+				fprintf(stderr, "No se pudo abrir el archivo: %s\n", argv[arch]);
+				return 1;
+			}
+			status = procesarArchivo(entrada);
 			if(status)
-				return status;		
+				return status;
+			fclose(entrada);
+			entrada = NULL;
+			arch++;
 		}
 	}
-	if(argc == 3) {
-		status = abrirArchivo(argv[1], entrada, "r");
-		status = abrirArchivo(argv[2], salida, "w");
-		if(status)
-			return status;
-	}
-	
-	status = rev(entrada, salida);
-	
 	return status;
 	
 }
 
-// Abre el archivo con el modo que se le pase por parametro
-// Retorna 0 en caso satisfactorio, distinto de 0 en caso contrario
-int abrirArchivo(char* path, FILE* fd, char* mode) {
-	fd = fopen(path, mode);
-	if(!fd) {
-		fprintf(stderr, "No se pudo abrir el archivo: %s\n", path);
-		return 1;
+// Procesa el archivo de entrada (puede ser stdin)
+// Invierte las lineas del archivo y las imprime por stdout
+// En caso satisfactorio devuelve 0, distinto de 0 en otros casos
+int procesarArchivo(FILE* fd){
+	int nextChar = fgetc(fd);
+	size_t sizeOfChar = sizeof(unsigned char);
+	unsigned char* line = malloc(sizeOfChar);
+	int lineWidth = 0;
+	int result = 0;
+	while(nextChar != EOF) {
+		if(nextChar != '\n') {
+			lineWidth++;
+			line = (unsigned char*) realloc(line,lineWidth*sizeOfChar);
+			line[lineWidth - 1] = (unsigned char) nextChar;
+		} else {
+			unsigned char* inverseLine = (unsigned char*) malloc((lineWidth + 1)*sizeOfChar);
+			for(int pos = 0; pos < lineWidth; pos++){
+				inverseLine[pos] = line[(lineWidth - 1) - pos];
+			}
+			inverseLine[lineWidth] = '\n';
+			int outStatus = fwrite ( inverseLine, sizeOfChar, lineWidth + 1, stdout);
+			free(inverseLine);
+			lineWidth = 0;
+		}
+		nextChar = fgetc(fd);
 	}
-	return 0;
+	return result;
 }
 
-int rev(FILE* entrada, FILE* salida) {
-	if(!entrada){
-		// Tomamos de la entrada estandar
-	}
-	// Sino procesamos del archivo de entrada
-	
-	return 0;
-}
