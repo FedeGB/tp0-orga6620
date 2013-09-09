@@ -22,6 +22,10 @@ int main(int argc, char** argv) {
 			printf("Comandos y argumentos disponibles:\n");
 			printf("-V Version del programa\n");
 			printf("[File...] (Archivo/s de entrada)\n");
+			printf("En caso de no pasar archivos se toma la entrada estandar\n");
+			printf("Cada linea se cuenta hasta un enter\n");
+			printf("Para finalizar el programa estando con la entrada estandar");
+			printf(" pulsar 'ctrl+d' para un correcto cierre del mismo");
 			// Y cualquier otra cosa que se quiera agregar
 			return 0;
 		}
