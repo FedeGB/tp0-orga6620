@@ -12,7 +12,7 @@
 
 \author{    Damián Muszalski, \textit{Padrón Nro. 88462}                	\\
             \texttt{ damianfiuba@gmail.com }                            	\\
-            Federico García, \textit{Padrón Nro. }       			\\
+            Federico García, \textit{Padrón Nro. 93379}      			\\
             \texttt{ fedeagb@gmail.com }                       		\\
             Nicolás Fernandez Lema, \textit{Padrón Nro. }       		\\
             \texttt{ nicolasfernandezlema@gmail.com }                       	\\
@@ -95,13 +95,63 @@ Donde nombreArchivoX posee el texto al cual aplicar el comando rev.
 El proyecto se debe compilar tanto en el sistema Host (en nuestro caso Ubuntu) como en el Guest (NetBSD). Se dispone del mismo compilador en ambos sistemas por lo tanto
 para ambos casos debemos situarnos en el directorio donde se encuentran todos los fuentes y utilizar el siguiente comando:
 
-\texttt{gcc -o tp0 tp0.c}\\
+\texttt{gcc -std=c99 -o tp0 tp0.c}\\
 
 Con esto se generar\'{a} un archivo ejecutable, llamado tp0.  
 
 \newpage
 \section{Ejemplos de ejecuci\'{o}n}
-A continuaci\'{o}n se mostrar\'{a}n algunos ejemplos de archivos sobre los cuales se utiliza el programa realizado.
+A continuaci\'{o}n se mostrar\'{a}n algunos ejemplos de archivos sobre los cuales se utiliza el programa realizado.\\
+Considerando que los caracteres que vamos a tener en cuenta son de 1 byte realizaremos pruebas sobre archivos de texto similares al ingl\'{e}s generados aleatoreamente
+utilizando la herramienta proporcionada en el sitio \\http://randomtextgenerator.com/\\
+\\
+\$ cat ejemplo1.txt\\ 
+Turned it up should no valley cousin he.\\
+Speaking numerous ask did horrible packages set. Ashamed herself has distant can studied mrs. Led therefore its middleton perpetual fulfilled provision frankness.\\
+Small he drawn after among every three no. All having but you edward genius though remark one. \\
+\\
+Perhaps far exposed age effects. Now distrusts you her delivered applauded affection out sincerity. As tolerably recommend shameless unfeeling he objection consisted.\\
+She although cheerful perceive screened throwing met not eat distance.\\
+Viewing hastily or written dearest elderly up weather it as. So direction so sweetness or extremity at daughters. Provided put unpacked now but bringing.\\
+\\
+\$ ./tp0 ejemplo1.txt\\ 
+.eh nisuoc yellav on dluohs pu ti denruT\\
+.ssenknarf noisivorp dellifluf lauteprep notelddim sti erofereht deL .srm deiduts nac tnatsid sah flesreh demahsA .tes segakcap elbirroh did ksa suoremun gnikaepS\\
+ .eno kramer hguoht suineg drawde uoy tub gnivah llA .on eerht yreve gnoma retfa nward eh llamS\\
+\\
+.detsisnoc noitcejbo eh gnileefnu sselemahs dnemmocer ylbarelot sA .ytirecnis tuo noitceffa dedualppa dereviled reh uoy stsurtsid woN .stceffe ega desopxe raf spahreP\\
+.ecnatsid tae ton tem gniworht deneercs eviecrep lufreehc hguohtla ehS\\
+ .gnignirb tub won dekcapnu tup dedivorP .srethguad ta ytimertxe ro ssenteews os noitcerid oS .sa ti rehtaew pu ylredle tseraed nettirw ro ylitsah gniweiV\\
+ \\
+ \\
+\$ cat ejemplo2.txt \\
+Bepaalde ik mogelijk interest gestoken in de wisselen er. Ten dan toe kinderen uitgaven stampers verhoogd. Leeningen wat uit wassching siameezen. ondernomen af verscholen en en. Drong die weg mei ploeg tabak ook. Kan bewijs deelen dan gambir midden ceylon. \\
+\\
+Mee geheelen wat gas kapitaal strooien kolonist mineraal. Ook erin wie maar zien weer moet ader. Aard maar nu wier de daad. Personeel levert nu om. Werkt van dit wijze buurt dagen bezet een heele. \\
+\\
+Afstands in is cultures reiziger de. Pahang geruineerd in plotseling. Jungles bijgang te nu beperkt op vrouwen. En doelmatige om ad traliewerk bevorderen.\\
+\\
+\$ cat ejemplo2.txt \textbar ./tp0 \\
+.nolyec neddim ribmag nad neleed sjiweb naK .koo kabat geolp iem gew eid gnorD .ne ne nelohcsrev fa nemonredno .nezeemais gnihcssaw tiu taw negnineeL .dgoohrev srepmats nevagtiu nerednik eot nad neT .re nelessiw ed ni nekotseg tseretni kjilegom ki edlaapeB\\
+\\
+.eleeh nee tezeb negad truub ezjiw tid nav tkreW .mo un trevel leenosreP .daad ed reiw un raam draA .reda teom reew neiz raam eiw nire koO .laarenim tsinolok neioorts laatipak sag taw neleeheg eeM\\
+\\
+.neredroveb kreweilart da mo egitamleod nE .newuorv po tkrepeb un et gnagjib selgnuJ .gnilestolp ni dreeniureg gnahaP .ed regizier serutluc si ni sdnatsfA\\
+\\
+
+\section{Comparaci\'{o}n con comando rev de UNIX}
+Realizamos las siguientes pruebas para comparar la salida generada por el Trabajo Pr\'{a}ctico con el comando \emph{rev} de UNIX.\\
+\\
+\$ ./tp0 ejemplo1.txt \textgreater ejemplo1.out\\
+\$ rev ejemplo1.txt \textgreater ejemplo1.out.rev\\
+\$ diff ejemplo1.out ejemplo1.out.rev\\
+\\
+\$ cat ejemplo2.txt \textbar ./tp0 \textgreater ejemplo2.out\\
+\$ rev ejemplo2.txt \textgreater ejemplo2.out.rev\\
+\$ diff ejemplo2.out ejemplo2.out.rev\\
+\\
+Para todos los casos no se obtuvo salida por consola por lo que ambos archivos de salida son iguales.
+
 
 \newpage
 \section{Conclusi\'{o}n}
