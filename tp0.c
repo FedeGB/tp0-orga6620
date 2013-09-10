@@ -15,7 +15,6 @@ int main(int argc, char** argv) {
 	if (argc == 2) {
 		if (strcmp(argv[1], "-V") == 0) {
 			printf("Version: %d\n", VERSION);
-			// No se si solo eso :P
 			return 0;
 		}
 		if (strcmp(argv[1], "-h") == 0) {
