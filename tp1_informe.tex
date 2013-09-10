@@ -1,0 +1,130 @@
+% ------ Clase de documento ------
+\documentclass[a4paper,10pt,oneside]{article}
+
+% ------ Paquetes ------
+\usepackage{graphicx}
+\usepackage[latin1]{inputenc}
+\usepackage[activeacute,spanish]{babel}
+\usepackage{verbatim}
+
+% ------ Configuración ------
+\title{\textbf{Trabajo Pr\'{a}ctico 1}}
+
+\author{    Damián Muszalski, \textit{Padrón Nro. 88462}                	\\
+            \texttt{ damianfiuba@gmail.com }                            	\\
+            Federico García, \textit{Padrón Nro. }       			\\
+            \texttt{ fedeagb@gmail.com }                       		\\
+            Nicolás Fernandez Lema, \textit{Padrón Nro. }       		\\
+            \texttt{ nicolasfernandezlema@gmail.com }                       	\\
+										\\
+            \normalsize{2do. Cuatrimestre de 2013}                      	\\
+            \normalsize{66.20 Organización de Computadoras}             	\\
+            \normalsize{Facultad de Ingeniería, Universidad de Buenos Aires}	\\
+       }
+\date{10/09/2013}
+
+
+\begin{document}
+
+% Inserta el título.
+\maketitle
+
+% Quita el número en la primer página.
+\thispagestyle{empty}
+
+\newpage
+
+\section{Objetivo}
+El objetivo de este trabajo es familiarizarse con las herramientas que utilizaremos para emular un entorno MIPS32.
+
+
+\section{Introducci\'{o}n}
+
+En el presente trabajo pr\'{a}ctico, se deben implementar en lenguaje C una versi\'{o}n del comando \emph{rev} de UNIX. El mismo concatena y escribe en stdout el contenido de uno o mas
+archivos, invirtiendo el orden de los caracteres de cada l\'{i}nea. En nuestro caso se asume que cada caracter mide 1 byte.
+
+
+\section{Implementaci\'{o}n}
+
+El programa debe leer los datos de entrada desde stdin o bien desde uno o m\'{a}s archivos. La salida del programa debe imprimirse por stdout, mientras que los errores deben imprimirse por
+stderr. La ayuda y versi\'{o}n del programa puede seleccionarse mediante las opciones -h o -V respectivamente. La implementaci\'{o}n del comando debe consiste en una
+funci\'{o}n con el siguiente prototipo:
+int procesarArchivo(FILE* fd);
+
+\newpage
+\section{Desarrollo}
+A continuaci\'{o}n se citan los pasos a que se siguieron para hacer el trabajo pr\'{a}ctico.
+
+\subsection{Paso 1: Configuraci\'{o}n de Entorno de Desarrollo}
+El primer paso fue configurar el entorno de desarrollo, de acuerdo a la gu\'{\i}a facilitada por la c\'{a}tedra.
+Trabajamos con la distribuci\'{o}n Ubuntu (basada en Debian) que se puede bajar libremente de http://www.ubuntu.com/.
+Se realiz\'{o} posteriormente la instalaci\'{o}n de GxEmul para emular un sistema MIPS; se utiliz\'{o} el proporcionado por la c\'{a}tedra, el cual tra\'{i}a una imagen del sistema
+operativo NetBSD con algunas utilidades (compilador C, ssh, editor vi, etc).
+
+\subsection{Paso 2: Implementaci\'{o}n del programa}
+El programa se subdividi\'{o} en dos funciones:\\
+- main, encargada del parseo de los par\'{a}metros de entrada.\\
+- procesarArchivo, encargada de realizar la funcionalidad del comando rev.\\
+
+El programa debe ejecutarse por l\'{i}nea de comando, donde la salida sera tambi\'{e}n por consola.
+
+\subsubsection{Implementaci\'{o}n de las funciones}
+
+\begin{itemize}
+\item main
+Es la funci\'{o}n principal, encargada de tomar los parámetros de entrada. Luego imprimir ayuda o versi\'{o}n si corresponde, o realizar llamadas sucesivas a la
+funci\'{o}n procesarArchivo con el puntero a archivo que corresponda, ya sea el cual cuyo nombre se recibe como par\'{a}metro o simplemente \emph{stdin}.
+		
+\item procesarArchivo
+Es la funci\'{o}n encargada de realizar la inversi\'{o}n de los caracteres de las l\'{i}neas de los archivos de entrada. Lee secuencialmente las l\'{i}neas reservando 1 byte
+de memoria adicional con cada caracter le\'{i}do.\\
+Una vez en memoria se arma un segundo arreglo de caracteres donde se copia la l\'{i}nea invirtiendola. Finalmente se imprime por pantalla esta l\'{i}nea invertida.\\
+Se libera la memoria y se lee la siguiente l\'{i}nea del archivo. El ciclo corta al llegar a una señal de EOF.
+
+\end{itemize}
+	
+\subsubsection{Ingreso de par\'{a}metros}
+El formato para invocar al programa es el siguiente:\\
+\emph{./tp1 nombreArchivo1 nombreArchivo2 .. nombreArchivoN\\}
+Donde nombreArchivoX posee el texto al cual aplicar el comando rev.
+
+
+\newpage	
+\section{C\'{o}digo para compilar el programa con gcc}
+	
+El proyecto se debe compilar tanto en el sistema Host (en nuestro caso Ubuntu) como en el Guest (NetBSD). Se dispone del mismo compilador en ambos sistemas por lo tanto
+para ambos casos debemos situarnos en el directorio donde se encuentran todos los fuentes y utilizar el siguiente comando:
+
+\texttt{gcc -o tp0 tp0.c}\\
+
+Con esto se generar\'{a} un archivo ejecutable, llamado tp0.  
+
+\newpage
+\section{Ejemplos de ejecuci\'{o}n}
+A continuaci\'{o}n se mostrar\'{a}n algunos ejemplos de archivos sobre los cuales se utiliza el programa realizado.
+
+\newpage
+\section{Conclusi\'{o}n}
+
+\newpage
+\section{Bibliograf\'{i}a}
+
+\begin{itemize}
+ \item {Material de la c\'{a}tedra}\\
+ Se puede encontrar en el grupo Yahoo:\\
+ \emph{http://groups.yahoo.com/neo/groups/orga-comp/files}
+
+
+\end{itemize}
+
+\newpage
+\section{C\'{o}digo Fuente}
+\subsection{tp0.c}
+\verbatiminput{tp0.c}
+
+\newpage
+\section{C\'{o}digo MIPS generado por el compilador}
+\subsection{tp0.s}
+\verbatiminput{tp0.s}
+
+\end{document}
