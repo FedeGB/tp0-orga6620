@@ -6,6 +6,7 @@
 \usepackage[latin1]{inputenc}
 \usepackage[activeacute,spanish]{babel}
 \usepackage{verbatim}
+\usepackage{listings}
 
 % ------ Configuración ------
 \title{\textbf{Trabajo Pr\'{a}ctico 0:\\ Infraestructura básica}}
@@ -173,13 +174,17 @@ emite c\'{o}digo de retorno 1 para todos los casos de error.
 \end{itemize}
 
 \newpage
+\lstset{
+basicstyle=\footnotesize,
+tabsize=2
+}
 \section{C\'{o}digo Fuente}
 \subsection{tp0.c}
-\verbatiminput{tp0.c}
+\lstinputlisting[language=C]{tp0.c}
 
 \newpage
 \section{C\'{o}digo MIPS generado por el compilador}
 \subsection{tp0.s}
-\verbatiminput{tp0.s}
+\lstinputlisting{tp0.s}
 
 \end{document}
